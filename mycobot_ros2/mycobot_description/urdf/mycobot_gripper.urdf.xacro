@@ -1,0 +1,20 @@
+<!-- mycobot_280_m5_with_gripper.urdf.xacro -->
+<xacro:macro name="mycobot_with_gripper" params="">
+  <!-- 1) Include the arm URDF -->
+  <xacro:include filename="$(find mycobot_description)/urdf/mycobot_280_m5/mycobot_280_m5.urdf" />
+
+  <!-- 2) Include the gripper URDF -->
+  <xacro:include filename="$(find mycobot_description)/urdf/adaptive_gripper/mycobot_adaptive_gripper.urdf" />
+
+  <!-- 3) Attach the gripper_base link to the arm's last link (joint6_flange).
+       Adjust the origin so it fits correctly. -->
+  <joint name="gripper_to_arm" type="fixed">
+    <parent link="joint6_flange"/>
+    <child link="gripper_base"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+</xacro:macro>
+
+<robot name="firefighter" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:mycobot_with_gripper />
+</robot>
